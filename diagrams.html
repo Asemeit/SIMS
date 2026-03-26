@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIMS System Design Diagrams</title>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; max-width: 1200px; margin: 0 auto; background-color: #f9f9f9; }
+        .diagram-container { 
+            margin-bottom: 3rem; 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+        }
+        h2 { color: #333; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
+        .download-hint { 
+            background-color: #e0f2fe; 
+            color: #0369a1; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+            border: 1px solid #bae6fd;
+        }
+    </style>
+</head>
+<body>
+    <h1>SIMS System Design Diagrams</h1>
+    
+    <div class="download-hint">
+        <strong>💡 How to Save:</strong>
+        <p style="margin: 0.5rem 0 0 0;">These diagrams are rendered live. To save them as images: <strong>Right-click</strong> on a diagram and select <strong>"Save Image As..."</strong> (or "Copy Image").</p>
+    </div>
+
+    <!-- Architecture -->
+    <div class="diagram-container">
+        <h2>1. High-Level Architecture</h2>
+        <div class="mermaid">
+            graph TD
+            User[Clients (Mobile/Desktop)] -->|HTTPS| CDN[Vite/Edge Network]
+            CDN -->|Load App| Frontend[React SPA]
+            
+            subgraph Frontend Logic
+                UI[UI Components]
+                State[Context/State Management]
+                Scanner[Barcode Scanner Module]
+            end
+            
+            Frontend -->|REST / Realtime| Backend[Supabase Platform]
+            
+            subgraph Backend Services
+                Auth[Authentication Service]
+                DB[(PostgreSQL Database)]
+                Storage[File Storage]
+                Edge[Edge Functions]
+            end
+            
+            Backend --> DB
+        </div>
+    </div>
+
+    <!-- ERD -->
+    <div class="diagram-container">
+        <h2>2. Entity Relationship Diagram (ERD)</h2>
+        <div class="mermaid">
+            erDiagram
+            INVENTORY {
+                uuid id PK "Unique Identifier"
+                text name "Product Name"
+                text sku "Stock Keeping Unit (Unique)"
+                text category "Product Category"
+                int quantity "Current Stock"
+                int min_stock_level "Low Stock Threshold"
+                decimal price "Unit Price"
+                date expiry_date "Optional Expiration"
+                text status "Computed Status (In/Low/Out)"
+                timestamptz created_at "Audit Timestamp"
+            }
+
+            USER {
+                uuid id PK
+                email string
+                role string
+            }
+
+            %% Future Relation
+            USER ||--o{ INVENTORY : manages
+        </div>
+    </div>
+
+     <!-- Sequence -->
+     <div class="diagram-container">
+        <h2>3. User Flow: Adding Inventory</h2>
+        <div class="mermaid">
+            sequenceDiagram
+            participant U as User
+            participant UI as Add Item Modal
+            participant Cam as Barcode Scanner
+            participant DB as Supabase DB
+        
+            U->>UI: Click "Add Item"
+            UI->>U: Display Form
+            U->>UI: Click "Scan Barcode"
+            UI->>Cam: Activate Camera
+            Cam-->>U: Show Camera Overlay
+            U->>Cam: Points Camera at Product
+            Cam->>UI: Returns Decoded SKU (e.g., "12345")
+            UI-->>U: Auto-fills SKU Field
+            U->>UI: Fills remaining fields (Name, Price, Qty)
+            U->>UI: Click "Save"
+            UI->>DB: INSERT INTO inventory (...)
+            DB-->>UI: Return Success + New Record
+            UI-->>U: Close Modal & Update List
+        </div>
+    </div>
+
+    <!-- Component -->
+    <div class="diagram-container">
+        <h2>4. Component Diagram</h2>
+        <div class="mermaid">
+            graph TD
+            App[App Container] --> Layout[Layout Wrapper]
+            Layout --> Sidebar[Sidebar Nav]
+            Layout --> TopNav[Top Navigation]
+            Layout --> Content[Page Content]
+            
+            Content --> Dashboard[Dashboard Page]
+            Content --> Inventory[Inventory Page]
+            Content --> Settings[Settings Page]
+            
+            Inventory --> Table[Data Table]
+            Inventory --> Modal[Add Item Modal]
+            Modal --> Scanner[Barcode Scanner]
+            
+            Dashboard --> Charts[Recharts Modules]
+            Dashboard --> Stats[Stat Cards]
+        </div>
+    </div>
+
+</body>
+</html>
