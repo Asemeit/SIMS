@@ -77,7 +77,7 @@ export function AddItemModal({ isOpen, onClose, onAdd }: AddItemModalProps) {
       name: formData.name,
       sku: formData.sku,
       category: formData.category,
-      status: 'In Stock' as const,
+      status: 'In Stock' as 'In Stock' | 'Out of Stock' | 'Low Stock',
       quantity: quantity,
       price: price,
       min_stock_level: isNaN(min_stock_level) ? 10 : min_stock_level,

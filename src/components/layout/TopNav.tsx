@@ -38,7 +38,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
             
             // 1. Low Stock Alerts
             const lowStockItems = inventory.filter(item => item.quantity <= (item.min_stock_level || 10));
-            lowStockItems.slice(0, 2).forEach((item, index) => {
+            lowStockItems.slice(0, 2).forEach((item) => {
                 newNotifications.push({
                     id: `low-${item.id}`,
                     title: 'Low Stock Alert',
@@ -58,7 +58,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
                 return expiry > new Date() && expiry <= thirtyDaysFromNow;
             });
             
-            expiringSoon.slice(0, 2).forEach((item, index) => {
+            expiringSoon.slice(0, 2).forEach((item) => {
                 newNotifications.push({
                     id: `exp-${item.id}`,
                     title: 'Expiry Warning',

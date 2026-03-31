@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { HelpCircle, Info, MessageSquare, Mail, Phone, ExternalLink, ChevronRight } from 'lucide-react';
+import { HelpCircle, Info, MessageSquare, Mail, Phone, ExternalLink } from 'lucide-react';
 
 export function Support() {
   const [activeTab, setActiveTab] = useState<'about' | 'faq' | 'contact'>('about');
