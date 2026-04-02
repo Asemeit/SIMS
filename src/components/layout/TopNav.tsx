@@ -133,7 +133,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
             <div className="relative" ref={dropdownRef}>
                 <button 
                     onClick={() => setIsOpen(!isOpen)}
-                    className="relative p-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors focus:outline-none"
+                    className="tour-notifications relative p-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors focus:outline-none"
                 >
                     <Bell className="w-5 h-5" />
                     {unreadCount > 0 && (

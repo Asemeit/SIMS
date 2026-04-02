@@ -28,7 +28,7 @@ export function Sidebar({ onClose, className }: SidebarProps) {
 
   return (
     <aside className={cn(
-        "w-64 flex flex-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 h-full transition-colors duration-300",
+        "tour-sidebar w-64 flex flex-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 h-full transition-colors duration-300",
         className
     )}>
         {/* Logo */}

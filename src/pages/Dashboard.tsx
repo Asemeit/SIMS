@@ -160,7 +160,7 @@ export function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="tour-stats grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
             title="Total Units" 
             value={stats.totalInventory} 
@@ -204,6 +204,12 @@ export function Dashboard() {
                <div className="h-full w-full flex items-center justify-center">
                  <div className="animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div>
                </div>
+            ) : trendData.length === 0 ? (
+                <div className="h-full w-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+                  <Package className="w-12 h-12 mb-3 text-slate-300 dark:text-slate-600" />
+                  <p className="text-sm font-medium">No items to analyze yet</p>
+                  <p className="text-xs mt-1">Add items to see trends</p>
+                </div>
             ) : (
                 <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={trendData}>
@@ -298,7 +304,13 @@ export function Dashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50 dark:divide-slate-700/50">
-                {recentItems.map((item) => (
+                {recentItems.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="py-12 text-center text-slate-500">
+                       <p className="text-sm">No activity recorded yet</p>
+                    </td>
+                  </tr>
+                ) : recentItems.map((item) => (
                   <tr key={item.id} className="group hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                     <td className="py-4 font-medium text-slate-900 dark:text-white">{item.name}</td>
                     <td className="py-4 text-sm text-slate-500 dark:text-slate-400">

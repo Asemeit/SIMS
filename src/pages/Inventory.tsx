@@ -164,6 +164,26 @@ export function Inventory() {
                     Loading inventory...
                   </td>
                 </tr>
+              ) : items.length === 0 && !searchTerm ? (
+                <tr>
+                  <td colSpan={8} className="px-6 py-20 text-center">
+                    <div className="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 animate-in fade-in duration-300">
+                      <div className="w-20 h-20 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mb-4">
+                        <Package className="w-10 h-10 text-primary opacity-80" />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Looks like your warehouse is empty!</h3>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6">
+                        To get started, try adding your first product. You can track prices, quantities, and expiration dates seamlessly.
+                      </p>
+                      <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/25"
+                      >
+                        Add Your First Item
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               ) : filteredItems.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
