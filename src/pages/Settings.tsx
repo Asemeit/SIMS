@@ -119,7 +119,7 @@ export function Settings() {
       <div className="flex items-center justify-between">
         <div>
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Settings</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Manage your account settings and preferences.</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Manage your account settings and preferences. <span className="text-[10px] opacity-30 italic">v1.0.4-live</span></p>
         </div>
         <div className="flex items-center gap-3">
             {showSuccess && (
@@ -137,6 +137,43 @@ export function Settings() {
                 </button>
             )}
         </div>
+      </div>
+
+      {/* !!! DELETE ACCOUNT SECTION - TOP OF PAGE !!! */}
+      <div className="bg-red-600 dark:bg-red-700 text-white rounded-xl shadow-lg shadow-red-500/20 overflow-hidden border-2 border-red-500 animate-pulse-subtle">
+          <div className="p-6 border-b border-red-500/30 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                  <Trash2 className="w-6 h-6" />
+                  <h3 className="text-xl font-black uppercase tracking-tighter">Danger: Delete Account</h3>
+              </div>
+              <button 
+                onClick={() => setShowDeleteConfirm(true)}
+                disabled={isDeleting}
+                className="px-6 py-2 bg-white text-red-600 rounded-full hover:bg-slate-100 transition-all font-bold text-sm shadow-xl"
+              >
+                  {isDeleting ? "Deleting..." : "DELETE MY ENTIRE ACCOUNT NOW"}
+              </button>
+          </div>
+          
+          {showDeleteConfirm && (
+              <div className="p-6 bg-red-800 animate-in zoom-in-95 duration-200">
+                   <p className="text-lg font-bold mb-4">⚠️ ARE YOU ABSOLUTELY SURE? ALL DATA WILL BE WIPED FOREVER.</p>
+                   <div className="flex items-center gap-4">
+                       <button 
+                          onClick={handleDeleteAccount}
+                          className="px-6 py-2 bg-red-500 hover:bg-red-400 text-white font-black rounded-lg border-2 border-white"
+                       >
+                           YES, DELETE EVERYTHING
+                       </button>
+                       <button 
+                          onClick={() => setShowDeleteConfirm(false)}
+                          className="px-6 py-2 bg-transparent text-white/80 hover:text-white font-medium underline"
+                       >
+                           No, take me back
+                       </button>
+                   </div>
+              </div>
+          )}
       </div>
 
       {/* Profile Section */}
@@ -192,62 +229,6 @@ export function Settings() {
           </div>
       </div>
 
-      {/* Account Deletion Section - MOVED UP FOR VISIBILITY */}
-      <div className="bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-200 dark:border-red-900/50 shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-red-100 dark:border-red-900/30">
-              <div className="flex items-center gap-3">
-                  <div className="p-2 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg">
-                      <Trash2 className="w-5 h-5" />
-                  </div>
-                  <div>
-                      <h3 className="text-lg font-bold text-red-700 dark:text-red-400">Account Management</h3>
-                      <p className="text-sm text-red-600/80 dark:text-red-400/80 mt-1">Permanently delete your profile and data.</p>
-                  </div>
-              </div>
-          </div>
-          <div className="p-6">
-              <div className="flex items-center justify-between">
-                  <div>
-                      <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Delete My Account</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                          This will wipe your inventory and login forever.
-                      </p>
-                  </div>
-                  <button 
-                    onClick={() => setShowDeleteConfirm(true)}
-                    disabled={isDeleting}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors shadow-sm font-medium text-sm"
-                  >
-                      {isDeleting ? (
-                         <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                      ) : (
-                         <Trash2 className="w-4 h-4" />
-                      )}
-                      Delete My Account
-                  </button>
-              </div>
-              
-              {showDeleteConfirm && (
-                  <div className="mt-4 p-4 bg-red-100 dark:bg-red-900/40 rounded-lg border border-red-200 dark:border-red-800 animate-in fade-in slide-in-from-top-2">
-                       <p className="text-sm text-red-800 dark:text-red-300 font-medium mb-3">
-                           Are you absolutely sure? This action cannot be undone.
-                       </p>
-                       <div className="flex items-center gap-3">
-                           <button 
-                              onClick={handleDeleteAccount}
-                              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md transition-colors shadow-sm"
-                           >
-                               Yes, delete everything
-                           </button>
-                           <button 
-                              onClick={() => setShowDeleteConfirm(false)}
-                              className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-md hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
-                           >
-                               Cancel
-                           </button>
-                       </div>
-                  </div>
-              )}
           </div>
       </div>
 
