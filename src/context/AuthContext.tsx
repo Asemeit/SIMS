@@ -18,6 +18,7 @@ interface AuthContextType {
   signUp: (email: string, password: string, name: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   updateProfile: (data: Partial<UserProfile>) => Promise<{ error: any }>;
+  deleteAccount: () => Promise<{ error: any }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -162,6 +163,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error }; 
   };
 
+  const deleteAccount = async () => {
+    if (!user) return { error: new Error('No user logged in') };
+    
+    // Call securely definied RPC function in Supabase
+    const { error } = await supabase.rpc('delete_user_account');
+    
+    if (!error) {
+       // Clear local session data
+       if (profile?.id) {
+          localStorage.removeItem(`sims-profile-${profile.id}`);
+       }
+       setUser(null);
+       setProfile(null);
+       await supabase.auth.signOut();
+    }
+    
+    return { error };
+  };
+
   return (
     <AuthContext.Provider value={{ 
         isAuthenticated: !!user, 
@@ -171,7 +191,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signIn, 
         signUp, 
         signOut, 
-        updateProfile 
+        updateProfile,
+        deleteAccount
     }}>
       {children}
     </AuthContext.Provider>
