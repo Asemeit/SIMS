@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react';
 import { Joyride } from 'react-joyride';
 import type { Step } from 'react-joyride';
 import { STATUS } from 'react-joyride';
+import { useAuth } from '../../context/AuthContext';
 
 export function AppTour() {
+  const { user } = useAuth();
   const [run, setRun] = useState(false);
 
   useEffect(() => {
+    if (!user?.id) return;
     // Only run the tour if the user hasn't seen it before
-    const hasSeenTour = localStorage.getItem('sims_has_seen_tour');
+    const hasSeenTour = localStorage.getItem(`sims_has_seen_tour_${user.id}`);
     if (!hasSeenTour) {
       // Add a slight delay so the UI can render fully
       const timer = setTimeout(() => {
@@ -24,7 +27,9 @@ export function AppTour() {
 
     if (finishedStatuses.includes(status)) {
       setRun(false);
-      localStorage.setItem('sims_has_seen_tour', 'true');
+      if (user?.id) {
+        localStorage.setItem(`sims_has_seen_tour_${user.id}`, 'true');
+      }
     }
   };
 
