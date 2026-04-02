@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Plus, Filter, MoreVertical, AlertCircle, Trash2, Scan } from 'lucide-react';
+import { Search, Plus, Filter, MoreVertical, AlertCircle, Trash2, Scan, Package } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { AddItemModal } from '../components/inventory/AddItemModal';
 import { BarcodeScanner } from '../components/common/BarcodeScanner';
