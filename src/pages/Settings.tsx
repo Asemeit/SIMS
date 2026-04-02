@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Globe, Moon, MapPin, Save, User as UserIcon, Mail, Shield, AlertTriangle, Trash2 } from 'lucide-react';
+import { Globe, Moon, MapPin, Save, User as UserIcon, Mail, Shield, Trash2 } from 'lucide-react';
 import { useSettings, type CurrencyCode, type RegionCode } from '../context/SettingsContext';
 import { useTheme } from '../components/layout/ThemeProvider';
 import { useAuth } from '../context/AuthContext';
@@ -271,23 +271,23 @@ export function Settings() {
           </div>
       </div>
 
-      {/* Danger Zone */}
-      <div className="bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-200 dark:border-red-900/50 shadow-sm overflow-hidden">
+      {/* Account Deletion Section */}
+      <div className="bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-200 dark:border-red-900/50 shadow-sm overflow-hidden mt-12 mb-8">
           <div className="p-6 border-b border-red-100 dark:border-red-900/30">
               <div className="flex items-center gap-3">
                   <div className="p-2 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg">
-                      <AlertTriangle className="w-5 h-5" />
+                      <Trash2 className="w-5 h-5" />
                   </div>
                   <div>
-                      <h3 className="text-lg font-bold text-red-700 dark:text-red-400">Danger Zone</h3>
-                      <p className="text-sm text-red-600/80 dark:text-red-400/80 mt-1">Irreversible and destructive actions</p>
+                      <h3 className="text-lg font-bold text-red-700 dark:text-red-400">Delete Account</h3>
+                      <p className="text-sm text-red-600/80 dark:text-red-400/80 mt-1">This action is permanent and cannot be reversed.</p>
                   </div>
               </div>
           </div>
           <div className="p-6">
               <div className="flex items-center justify-between">
                   <div>
-                      <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Delete Account</h4>
+                      <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Close Account</h4>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                           Permanently delete your account, inventory, and all associated data.
                       </p>
@@ -295,14 +295,14 @@ export function Settings() {
                   <button 
                     onClick={() => setShowDeleteConfirm(true)}
                     disabled={isDeleting}
-                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 transition-colors focus:ring-2 focus:ring-red-500/20 font-medium text-sm"
+                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors shadow-sm font-medium text-sm"
                   >
                       {isDeleting ? (
-                         <div className="w-4 h-4 rounded-full border-2 border-red-500 border-t-transparent animate-spin" />
+                         <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
                       ) : (
                          <Trash2 className="w-4 h-4" />
                       )}
-                      Delete Account
+                      Delete My Account
                   </button>
               </div>
               
