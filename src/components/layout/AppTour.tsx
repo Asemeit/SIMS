@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-// @ts-ignore
-import Joyride from 'react-joyride';
+import { Joyride } from 'react-joyride';
 import type { Step } from 'react-joyride';
 import { STATUS } from 'react-joyride';
 
@@ -63,20 +62,19 @@ export function AppTour() {
       run={run}
       continuous
       scrollToFirstStep
-      showProgress
-      showSkipButton
-      callback={handleJoyrideCallback}
+      onEvent={handleJoyrideCallback}
+      options={{
+        primaryColor: '#3b82f6', // Tailwind blue-500
+        zIndex: 10000,
+        showProgress: true,
+      }}
       styles={{
-        options: {
-          primaryColor: '#3b82f6', // Tailwind blue-500
-          zIndex: 10000,
-        },
         tooltip: {
           borderRadius: '12px',
           fontFamily: 'inherit',
           padding: '24px',
         },
-        buttonNext: {
+        buttonPrimary: {
           fontWeight: 'bold',
           borderRadius: '8px',
         },
