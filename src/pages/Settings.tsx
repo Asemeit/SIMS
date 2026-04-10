@@ -119,7 +119,7 @@ export function Settings() {
       <div className="flex items-center justify-between">
         <div>
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Settings</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Manage your account settings and preferences. <span className="text-[10px] opacity-30 italic">v1.0.4-live</span></p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Manage your account settings and preferences.</p>
         </div>
         <div className="flex items-center gap-3">
             {showSuccess && (
@@ -137,43 +137,6 @@ export function Settings() {
                 </button>
             )}
         </div>
-      </div>
-
-      {/* !!! DELETE ACCOUNT SECTION - TOP OF PAGE !!! */}
-      <div className="bg-red-600 dark:bg-red-700 text-white rounded-xl shadow-lg shadow-red-500/20 overflow-hidden border-2 border-red-500 animate-pulse-subtle">
-          <div className="p-6 border-b border-red-500/30 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                  <Trash2 className="w-6 h-6" />
-                  <h3 className="text-xl font-black uppercase tracking-tighter">Danger: Delete Account</h3>
-              </div>
-              <button 
-                onClick={() => setShowDeleteConfirm(true)}
-                disabled={isDeleting}
-                className="px-6 py-2 bg-white text-red-600 rounded-full hover:bg-slate-100 transition-all font-bold text-sm shadow-xl"
-              >
-                  {isDeleting ? "Deleting..." : "DELETE MY ENTIRE ACCOUNT NOW"}
-              </button>
-          </div>
-          
-          {showDeleteConfirm && (
-              <div className="p-6 bg-red-800 animate-in zoom-in-95 duration-200">
-                   <p className="text-lg font-bold mb-4">⚠️ ARE YOU ABSOLUTELY SURE? ALL DATA WILL BE WIPED FOREVER.</p>
-                   <div className="flex items-center gap-4">
-                       <button 
-                          onClick={handleDeleteAccount}
-                          className="px-6 py-2 bg-red-500 hover:bg-red-400 text-white font-black rounded-lg border-2 border-white"
-                       >
-                           YES, DELETE EVERYTHING
-                       </button>
-                       <button 
-                          onClick={() => setShowDeleteConfirm(false)}
-                          className="px-6 py-2 bg-transparent text-white/80 hover:text-white font-medium underline"
-                       >
-                           No, take me back
-                       </button>
-                   </div>
-              </div>
-          )}
       </div>
 
       {/* Profile Section */}
@@ -305,6 +268,56 @@ export function Settings() {
                   </div>
                   <span className="text-xs text-slate-500 dark:text-slate-400 capitalize">{theme === 'system' ? 'System' : theme}</span>
               </button>
+          </div>
+      </div>
+
+      {/* Delete Account Section */}
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden mt-8 mb-12">
+          <div className="p-6 border-b border-slate-100 dark:border-slate-700">
+              <div className="flex items-center gap-3">
+                  <div className="p-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg">
+                      <Trash2 className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">Delete Account</h3>
+              </div>
+          </div>
+          <div className="p-6">
+              <div className="flex items-center justify-between gap-4">
+                  <div className="flex-1">
+                      <p className="text-sm text-slate-600 dark:text-slate-300">
+                          Once you delete your account, there is no going back. All your data, inventory items, and history will be permanently removed.
+                      </p>
+                  </div>
+                  <button 
+                    onClick={() => setShowDeleteConfirm(true)}
+                    disabled={isDeleting}
+                    className="flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900/50 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/20 transition-all font-medium text-sm whitespace-nowrap"
+                  >
+                      {isDeleting ? "Deleting..." : "Delete Account"}
+                  </button>
+              </div>
+              
+              {showDeleteConfirm && (
+                  <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-900/50 animate-in fade-in slide-in-from-top-2">
+                       <p className="text-sm text-red-800 dark:text-red-300 font-medium mb-3">
+                           Are you absolutely sure? This action is permanent.
+                       </p>
+                       <div className="flex items-center gap-3">
+                           <button 
+                              onClick={handleDeleteAccount}
+                              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors"
+                           >
+                               Yes, delete my account
+                           </button>
+                           <button 
+                              onClick={() => setShowDeleteConfirm(false)}
+                              className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                           >
+                               Cancel
+                           </button>
+                       </div>
+                  </div>
+              )}
           </div>
       </div>
     </div>
