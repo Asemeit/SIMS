@@ -118,7 +118,7 @@ export function Settings() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Settings</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Settings Dashboard</h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">Manage your account settings and preferences.</p>
         </div>
         <div className="flex items-center gap-3">
